@@ -1,0 +1,4 @@
+# --inspect
+# `dirname $0`/.environment/Node.js/v6.11.1-linux-x64/bin/node --harmony $@
+
+`dirname $0`/.environment/Node.js/v7.9.0-linux-x64/bin/node --harmony $@

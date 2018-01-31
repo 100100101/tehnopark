@@ -1,0 +1,91 @@
+// @Author: Sergey <iadmin>
+// @Date:   2017-09-22T15:12:13+03:00
+// @Filename:
+// @Last modified by:   iadmin
+// @Last modified time: 2017-09-29T10:21:27+03:00
+[class*='scrollpane-'] {
+  position: absolute;
+  opacity: .5;
+    /*в скроллируемом состоянии*/
+    &.scrolling {
+      /*только если переполняет*/
+      &.overcrowded {
+          > .slider {
+            background-color: rgba(34, 175, 189, 0.5);
+          }
+      }
+    }
+
+    /*при изменении размера контента или контейнера*/
+    &.resizing {
+      background: rgba(204, 130, 255, 0.3);
+    }
+
+    /*на контейнер была наведена мышь*/
+    &.container-mouseenter {
+      /*только если переполняет*/
+      &.overcrowded {
+        > .slider {
+          box-shadow: inset 0px 0px 0px 1px #22afbd;
+        }
+      }
+      /*только если не переполняет*/
+      &:not(.overcrowded) {
+          > .slider {
+
+          }
+      }
+
+    }
+
+    > .slider {
+      // transition: all 0.5s ease;
+      position: relative;
+      background-color: rgba(0, 0, 0, 0.05);
+      cursor: pointer;
+      border-radius: 3px;
+      box-shadow: inset 0px 0px 0px 1px rgba(0, 0, 0, 0.25);
+    }
+
+}
+
+.scrollpane-x {
+  background: transparent;
+  width: 100%;
+  height: 1px;
+  left: 0;
+  background: rgb(228, 228, 228);
+    &:hover {
+      background: rgba(0, 0, 0, 0.3);
+    }
+
+    > .slider {
+      height: 100%;
+      cursor: ew-resize;
+    }
+}
+
+.scrollpane-y {
+  background: rgba(0, 0, 0, 0.1);
+  width: 5px;
+  height: 100%;
+  top: 0;
+    &:hover {
+      opacity: 1;
+    }
+
+    /*только если не переполняет по оси Y*/
+    &:not(.overcrowded) {
+      visibility: hidden;
+        > .slider {
+          width: 1px;
+          visibility: visible;
+          // margin-left: -50%;
+        }
+    }
+
+    > .slider {
+      width: 100%;
+      cursor: ns-resize;
+    }
+}

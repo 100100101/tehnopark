@@ -1,0 +1,2 @@
+NODE_PATH=`dirname $0`/.environment/Node.js/v7.9.0-linux-x64/bin/
+$NODE_PATH'node' $NODE_PATH'npm' $@
