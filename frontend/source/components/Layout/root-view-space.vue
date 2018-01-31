@@ -242,7 +242,7 @@ export default {
       if(errors.length) {
         this.isSubmitDisable = true;
         return false;
-      } else {
+      } else if(this.emailValue && this.passValue){
         this.isSubmitDisable = false;
         return true;
       }
@@ -266,6 +266,8 @@ export default {
   /**/
   mounted() {
     this.validateReceptionForm();
+    console.log('this.$validator:', this.$validator);
+    // this.$validator.validateAll();
     document.addEventListener('keydown', this.keydownSubmitReception, true);
   },
   /**/
@@ -374,7 +376,7 @@ export default {
 
         }
         .reception-window__cell3 {
-
+          margin-top: 20px !important;
         }
         .sign-in__avatar-cell {
           justify-content: center;

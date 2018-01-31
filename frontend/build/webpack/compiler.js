@@ -135,7 +135,7 @@ module.exports = function(config) {
     					loader:'file-loader',
     					options: {
     						/*относительный путь ~ './' позволяет загрузить файл по протоколу 'file:///' без необходимости запускать сервер*/
-    						publicPath: '/',
+    						publicPath: './',
     						// publicPath: '/',
     						outputPath: 'images/',
     						/*дополнительные переменные: [name], ...*/
@@ -152,8 +152,7 @@ module.exports = function(config) {
     				{
     					loader: 'file-loader',
     					options: {
-    						publicPath: '/',
-    						// publicPath: '/',
+    						publicPath: './',
     						outputPath: 'fonts/',
     						name: '[name]/[name].[ext]',
     					},
