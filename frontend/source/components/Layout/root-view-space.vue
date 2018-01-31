@@ -1,15 +1,16 @@
 <template>
   <div :class="classes.rootViewSpace">
     <div class="root-view-space__content">
-
-      <div class="">
+      <div
+        v-show="isShowSuccsess"
+        class=""
+      >
         reception 'sign in' succsess: {<br>
           &nbsp;&nbsp;emeil: {{emailValue}},<br>
           &nbsp;&nbsp;password: {{passValue}},<br>
           &nbsp;&nbsp;isUserRemember: {{isUserRemember}},<br>
         }
       </div>
-
       <transition name="fade">
         <window
           ref="receptrion"
@@ -39,7 +40,11 @@
                 >
                   <input
                     name="email"
-                    v-validate="'required|email'"
+                    v-validate="{
+                      required: true,
+                      email: true,
+                      max: 32,
+                    }"
                     data-vv-delay="100"
                     type="text"
                     placeholder="your@email.xxx"
@@ -75,6 +80,7 @@
                     v-validate="{
                       required: true,
                       min: 5,
+                      max: 32,
                     }"
                     name="password"
                     type="password"
@@ -129,7 +135,6 @@
                   </span>
                 </square>
 
-
                 <trigger
                   type="toggle"
                   class="remember-toggle"
@@ -149,6 +154,9 @@
               <button-trigger
                 class="sign-in__submit"
                 :disable="isSubmitDisable"
+                v-bind="!isSubmitDisable && {coloration: 'primary'}"
+                :effect-color="isSubmitDisable ? 'rgba(255, 50, 0, 0.2)' : 'rgba(0, 0, 0, 0.2)'"
+                @effect-done="signInSubmit"
               >
                 Sign in
               </button-trigger>
@@ -161,11 +169,11 @@
       <button-trigger
         v-if="!isReceptionWindowOpen"
         class="sign-in__submit root-view-space__cell2"
-        effect-color="rgba(255, 51, 0, 0.16)"
+        effect-color="rgba(0, 0, 0, 0.2)"
         @effect-done="isReceptionWindowOpen = !isReceptionWindowOpen"
         coloration="primary"
       >
-        Sign in
+        Open reception
       </button-trigger>
 
       <div class="root-view-space__cell3">
@@ -174,9 +182,7 @@
           Sign up now!
         </ref>
       </div>
-
     </div>
-
   </div>
 </template>
 
@@ -197,18 +203,18 @@ export default {
   data() {
     return {
       styleRules,
-      isReceptionWindowOpen: true,
+      isReceptionWindowOpen: false,
       isUserRemember: false,
       isSubmitDisable: true,
       emailFocus: false,
       passFocus: false,
+      isShowSuccsess: false,
       emailValue: '',
       passValue: '',
     };
   },
   computed: {
     classes() {
-      // this.$jss.createStyleSheet(require('./components/Theme/styles/').default);
       return this.$jss.createObservableStyleSheet(this, 'styleRules').classes;
     },
   },
@@ -219,7 +225,13 @@ export default {
       handler() {
         this.validateReceptionForm();
       },
-    }
+    },
+    emailValue() {
+      this.isShowSuccsess = false;
+    },
+    passValue() {
+      this.isShowSuccsess = false;
+    },
   },
   /**/
   methods: {
@@ -229,22 +241,36 @@ export default {
       ;
       if(errors.length) {
         this.isSubmitDisable = true;
+        return false;
       } else {
         this.isSubmitDisable = false;
+        return true;
       }
-        // this.$validator
-        //   .validateAll()
-        //   .then(response => {
-        //   })
-        //   .catch(err => {
-        //   })
-        // ;
+    },
+    /**/
+    signInSubmit() {
+      let
+        isReceptionFormValid = this.validateReceptionForm()
+      ;
+      if(isReceptionFormValid) {
+        this.isShowSuccsess = true;
+      }
+    },
+
+    keydownSubmitReception(event) {
+      if((this.emailFocus || this.passFocus) && event.key === 'Enter') {
+        this.signInSubmit();
+      }
     },
   },
   /**/
   mounted() {
-    console.log('this:', this);
     this.validateReceptionForm();
+    document.addEventListener('keydown', this.keydownSubmitReception, true);
+  },
+  /**/
+  beforeDestroy() {
+    document.removeEventListener('keydown', this.keydownSubmitReception, true);
   },
 };
 </script>
@@ -311,7 +337,7 @@ export default {
     .reception-window__content {
       max-width: 225px;
       width: 100%;
-      padding-right: 5px;
+      padding-right: 8px;
     }
       [class*='root-view-space__cell'] {
           &:not(:first-child) {
@@ -326,6 +352,7 @@ export default {
       }
       .root-view-space__cell3 {
         word-spacing: 2px;
+        padding: 0px 5px;
       }
         .sign-up-ref {
           color: #72985a;
@@ -446,6 +473,6 @@ export default {
               margin-left: 6px;
             }
           .sign-in__submit {
-
+            margin-left: 10px;
           }
 </style>

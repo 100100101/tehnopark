@@ -484,9 +484,9 @@ module.exports = {
   /*BEFORE DESTROY*/
   beforeDestroy() {
     /*удаление обработчиков события реагирующих на текущее поле*/
-    this.removeEventListeners();
+    // this.removeEventListeners();
     /*снять обработчик FOCUS*/
-    this.$refs.input.removeEventListener('focus', this.focus);
+    // this.$refs.input.removeEventListener('focus', this.focus);
   },
 
 }

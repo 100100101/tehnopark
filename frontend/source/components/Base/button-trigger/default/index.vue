@@ -33,7 +33,7 @@ module.exports = {
   },
 
   mounted() {
-    console.log('this.disable:', this.disable);
+
   },
 };
 </script>
@@ -53,11 +53,6 @@ $transition: 0.3s;
     position: relative;
     display: inline-flex;
     word-spacing: 2px;
-
-  }
-
-  /*COLORATION TRANSPARENT*/
-  .coloration_transparent {
       &:hover {
         &:before,
         &:after {
@@ -75,13 +70,21 @@ $transition: 0.3s;
         transition: $transition;
       }
       &:before {
-        box-shadow: inset -1px 0px 0px 0px #0ea9c0, inset 0px -1px 0px 0px #0ea9c0;
         bottom: 0;
         right: 0;
       }
       &:after {
         top: 0;
         left: 0;
+      }
+  }
+
+  /*COLORATION TRANSPARENT*/
+  .coloration_transparent {
+      &:before {
+        box-shadow: inset -1px 0px 0px 0px #0ea9c0, inset 0px -1px 0px 0px #0ea9c0;
+      }
+      &:after {
         box-shadow: inset 1px 0px 0px 0px #0ea9c0, inset 0px 1px 0px 0px #0ea9c0;
       }
   }
@@ -102,8 +105,14 @@ $transition: 0.3s;
   }
   /*COLORATION PRIMARY*/
   .coloration_primary {
-    background: #0ea9c0;
+    background: #93c273;
     color: #fff;
-
+    box-shadow: inset 0px -2px 0px 0px rgba(0, 0, 0, .08);
+      &:before {
+        box-shadow: inset -1px 0px 0px 0px #57982b, inset 0px -1px 0px 0px #57982b;
+      }
+      &:after {
+        box-shadow: inset 1px 0px 0px 0px #57982b, inset 0px 1px 0px 0px #57982b;
+      }
   }
 </style>
