@@ -266,7 +266,6 @@ export default {
   /**/
   mounted() {
     this.validateReceptionForm();
-    console.log('this.$validator:', this.$validator);
     // this.$validator.validateAll();
     document.addEventListener('keydown', this.keydownSubmitReception, true);
   },
