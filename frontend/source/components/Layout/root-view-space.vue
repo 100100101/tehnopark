@@ -432,8 +432,10 @@ export default {
 
               }
               .input_pass {
-                font-size: 16px;
                 letter-spacing: 1px;
+                  // &:not(:empty) {
+                  //   font-size: 16px;
+                  // }
               }
             .field-row__additional {
               margin-top: 5px;

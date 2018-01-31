@@ -38,6 +38,7 @@
     "vue-template-compiler": "^2.5.13",
     "webpack": "^3.10.0",
     "webpack-bundle-analyzer": "^2.9.2",
+    "webpack-clear-console": "^1.0.3",
     "webpack-dev-server": "^2.11.0"
   },
   "dependencies": {
